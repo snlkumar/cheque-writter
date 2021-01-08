@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="border:5px solid; width:600px; height:200px; padding:5px;">
+    <h2>ICICI BANK, Chandigarh Branch, 140308</h2>
+    <table cellspacing="6">
+        <tr>
+            <td>
+                Name: <b>Mr. Jatinder Singh</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Amount in words: <b>{{result['in_words']}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Rs. <input type="text" disabled value="{{result['amount']}}">
+            </td>
+        </tr>
+    </table>
+</div>
+{% endblock %}
