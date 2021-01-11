@@ -59,3 +59,16 @@ def test_cheque_created(params):
     assert "ICICI BANK, Chandigarh Branch, 140308" in driver.page_source
 
 
+def test_cheque_created_with_fraction_amount(params):
+    """
+    Test cheque created
+    """
+    project_url = params['project_url']
+    driver_path = params['driver_path']
+    options = Options()
+    options.headless = HEADLESS
+    driver = webdriver.Chrome(driver_path, options=options)
+    driver.get(project_url)
+    driver.find_element_by_name('amount').send_keys('126.23')
+    driver.find_element_by_name('submit').click()
+    assert "One Hundred And Twenty Six Point Two Three" in driver.page_source
