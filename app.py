@@ -13,7 +13,9 @@ def home():
 @app.route('/create-cheque', methods=['POST'])
 def create_cheque():
     data = request.data
-    in_words = num2words(request.form['amount']).replace('-',' ').title()
+    in_words = request.form['amount']
+    # in_words = num2words(request.form['amount']).replace('-',' ').title()
+    
     return render_template('cheque.html', result={'amount': request.form['amount'], 'in_words': in_words})
 
 
