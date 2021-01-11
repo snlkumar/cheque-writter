@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request
 from num2words import num2words
+import decimal
 
 app = Flask(__name__)
 
@@ -12,10 +13,11 @@ def home():
 
 @app.route('/create-cheque', methods=['POST'])
 def create_cheque():
-    data = request.data
     in_words = request.form['amount']
-    # in_words = num2words(request.form['amount']).replace('-',' ').title()
-    
+    try:
+        in_words = num2words(in_words).replace('-', ' ').title()
+    except (ValueError, decimal.InvalidOperation):
+        return render_template('error.html')
     return render_template('cheque.html', result={'amount': request.form['amount'], 'in_words': in_words})
 
 

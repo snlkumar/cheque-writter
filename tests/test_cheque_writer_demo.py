@@ -33,6 +33,17 @@ from selenium.webdriver.chrome.options import Options
 HEADLESS = True
 
 
+def test_home_page_worked(params):
+    """
+    Test RESTful API endpoint to check Get post data
+    """
+    try:
+        response = requests.get(params['project_url'])
+    except requests.ConnectionError:
+        assert False
+    assert response.status_code == 200
+
+
 def test_cheque_created(params):
     """
     Test cheque created
@@ -65,3 +76,22 @@ def test_cheque_created_with_fraction_amount(params):
     page_html = driver.page_source
     driver.close()
     assert "One Hundred And Twenty Six Point Two Three" in page_html
+
+
+def test_handled_invalid_amount_error(params):
+    """
+    Test cheque created
+    """
+    project_url = params['project_url']
+    driver_path = params['driver_path']
+    options = Options()
+    options.headless = HEADLESS
+    driver = webdriver.Chrome(driver_path, options=options)
+    driver.get(project_url)
+    driver.find_element_by_name('amount').send_keys('2lack')
+    driver.find_element_by_name('submit').click()
+    page_html = driver.page_source
+    driver.close()
+    assert "Invalid amount error." in page_html
+
+
