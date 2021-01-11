@@ -56,7 +56,9 @@ def test_cheque_created(params):
     driver.get(project_url)
     driver.find_element_by_name('amount').send_keys('200')
     driver.find_element_by_name('submit').click()
-    assert "ICICI BANK, Chandigarh Branch, 140308" in driver.page_source
+    page_html = driver.page_source
+    driver.close()
+    assert "ICICI BANK, Chandigarh Branch, 140308" in page_html
 
 
 def test_cheque_created_with_fraction_amount(params):
@@ -71,4 +73,6 @@ def test_cheque_created_with_fraction_amount(params):
     driver.get(project_url)
     driver.find_element_by_name('amount').send_keys('126.23')
     driver.find_element_by_name('submit').click()
-    assert "One Hundred And Twenty Six Point Two Three" in driver.page_source
+    page_html = driver.page_source
+    driver.close()
+    assert "One Hundred And Twenty Six Point Two Three" in page_html
